@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'AMTableWithStickyView_Example' do
+  pod 'AMTableWithStickyView', :path => '../'
+
+  target 'AMTableWithStickyView_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
