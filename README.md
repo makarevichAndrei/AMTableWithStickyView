@@ -36,10 +36,14 @@ clone the repo and copy files from Classes directory to your project
 
 ##Usage
 
-#import "AMTableWithStickyView.h"
+Import AMTableWithStickyView.
+
 Create stickyView and tableView with delegate.
+
 Create tableWithStickyView uising method: - (id)initWithTopView:(UIView *) topView tableView:(UITableView *)tableView;
+
 Add tableWithStickyView to your view.
+
 
 You can also change frame of tableWithStickyView using method: - (void)updateViewWithFrame:(CGRect)viewFrame;
 
