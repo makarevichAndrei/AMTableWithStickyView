@@ -7,9 +7,14 @@
 
 ## Example
 
-To run the example project, clone the repo, and run `pod install` from the Example directory first.
+To run the example project, clone the repo, and run from the Example directory.
+
+## Screenshot
+
 
 ## Requirements
+* iOS7
+* ARC
 
 ## Installation
 
@@ -17,8 +22,12 @@ AMTableWithStickyView is available through [CocoaPods](http://cocoapods.org). To
 it, simply add the following line to your Podfile:
 
 ```ruby
-pod "AMTableWithStickyView"
+pod 'AMTableWithStickyView', '0.1.0'
 ```
+
+or
+
+clone the repo and copy files from Classes directory to your project
 
 ## Author
 
