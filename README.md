@@ -10,9 +10,14 @@
 To run the example project, clone the repo, and run from the Example directory.
 
 ## Screenshot
-
+<img src="https://raw.github.com/makarevichAndrei/AMTableWithStickyView/0.1.0/screenshots/Simulator Screen Shot Jul 18, 2016, 22.58.20.png" width="200" height="360">
+<img src="https://raw.github.com/makarevichAndrei/AMTableWithStickyView/0.1.0/screenshots/Simulator Screen Shot Jul 18, 2016, 22.58.28.png" width="200" height="360">
+<img src="https://raw.github.com/makarevichAndrei/AMTableWithStickyView/0.1.0/screenshots/Simulator Screen Shot Jul 18, 2016, 22.58.38.png" width="200" height="360">
+<img src="https://raw.github.com/makarevichAndrei/AMTableWithStickyView/0.1.0/screenshots/Simulator Screen Shot Jul 18, 2016, 22.59.14.png" width="200" height="360">
+<img src="https://raw.github.com/makarevichAndrei/AMTableWithStickyView/0.1.0/screenshots/Simulator Screen Shot Jul 18, 2016, 22.59.21.png" width="200" height="360">
 
 ## Requirements
+
 * iOS7
 * ARC
 
@@ -28,6 +33,15 @@ pod 'AMTableWithStickyView', '0.1.0'
 or
 
 clone the repo and copy files from Classes directory to your project
+
+##Usage
+
+#import "AMTableWithStickyView.h"
+Create stickyView and tableView with delegate.
+Create tableWithStickyView uising method: - (id)initWithTopView:(UIView *) topView tableView:(UITableView *)tableView;
+Add tableWithStickyView to your view.
+
+You can also change frame of tableWithStickyView using method: - (void)updateViewWithFrame:(CGRect)viewFrame;
 
 ## Author
 
