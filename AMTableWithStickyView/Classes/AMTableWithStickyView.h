@@ -11,46 +11,56 @@
 @interface AMTableWithStickyView : UIScrollView <UIScrollViewDelegate, UITableViewDelegate>
 
 /**
- Accessors to customize search bar or use it create your UISearchDisplayController
+ * Accessors to customize search bar or use it create your UISearchDisplayController
  */
 @property (nonatomic, strong) UISearchBar *searchBar;
 
 /** 
- Create AMTableWithStickyView instance with default frame
- 
- - parameter topView: view that should by sticky
- - parameter tableView: table view with delegate and data source
- 
+ * Create AMTableWithStickyView instance with default frame
+ *
+ * @param topView view that should by sticky
+ * @param tableView table view with delegate and data source
+ *
+ * @return instance of AMTableWithStickyView
  */
 - (id)initWithTopView:(UIView *) topView tableView:(UITableView *)tableView;
 
 /**
- Create AMTableWithStickyView instance
- 
- - parameter topView: view that should by sticky
- - parameter tableView: table view with delegate and data source
- - parameter frame: frame of instance AMTableWithStickyView
- 
+ * Create AMTableWithStickyView instance
+ *
+ * @param topView view that should by sticky
+ * @param tableView table view with delegate and data source
+ * @param frame frame of instance AMTableWithStickyView
+ *
+ * @return instance of AMTableWithStickyView
  */
 - (id)initWithTopView:(UIView *) topView tableView:(UITableView *)tableView frame:(CGRect)frame;
 
 /**
- Update frame of AMTableWithStickyView instance
+ * Update frame of AMTableWithStickyView instance
+ *
+ * @param viewFrame frame that will be setted for instance of AMTableWithStickyView
  */
 - (void)updateViewWithFrame:(CGRect)viewFrame;
 
 /**
- Raplace sticky view with topView
+ * Raplace sticky view with topView
+ *
+ * @param topView view that will replace old sticky view
  */
 - (void)setUpTopView:(UIView *)topView;
 
 /**
- Replace table with tableView
+ * Replace table with tableView
+ *
+ * @param tableView table with delegate and data source that will repalece old table
  */
 - (void)setUpTableView:(UITableView *)tableView;
 
 /**
- Setup behavior of sticky view
+ * Setup behavior of sticky view
+ *
+ * @param yesNo bool value that setup behavoir of sticky view (default is NO)
  */
 - (void)topViewShouldHiding:(BOOL)yesNo; //default value is NO
 
