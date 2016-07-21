@@ -22,15 +22,15 @@
 @implementation AMTableWithStickyView
 
 - (id)initWithTopView:(UIView *) topView tableView:(UITableView *)tableView  {
-    return [self initWithTopView:topView tableView:tableView size:CGSizeMake(320, 480)];
+    return [self initWithTopView:topView tableView:tableView frame:CGRectMake(0, 0, 320, 480)];
 }
 
-- (id)initWithTopView:(UIView *) topView tableView:(UITableView *)tableView size:(CGSize) size {
+- (id)initWithTopView:(UIView *) topView tableView:(UITableView *)tableView frame:(CGRect)frame {
     self = [super init];
     if (self) {
-        self.searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, size.width, 44)];
+        self.searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, 44)];
         self.searchBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-        [topView setFrame:CGRectMake(0, self.searchBar.frame.size.height, size.width, topView.frame.size.height)];
+        [topView setFrame:CGRectMake(0, self.searchBar.frame.size.height, frame.size.width, topView.frame.size.height)];
         self.topView = topView;
         self.tableView = tableView;
         self.stickyViewDelegate = [AMStickyViewDelegate proxyWithObject:self.tableView.delegate forTableWithStickyView:self];
@@ -39,7 +39,7 @@
         self.showsVerticalScrollIndicator = NO;
         self.delegate = self;
     
-        [self setFrame:CGRectMake(0, 0, size.width, size.height)];
+        [self setFrame:frame];
     
         [self addSubview:self.searchBar];
         [self addSubview:self.topView];
@@ -67,6 +67,8 @@
 
 - (void)setUpTableView:(UITableView *)tableView {
     self.tableView = tableView;
+    self.stickyViewDelegate = [AMStickyViewDelegate proxyWithObject:self.tableView.delegate forTableWithStickyView:self];
+    self.tableView.delegate = self.stickyViewDelegate;
     [self updateScrollHeight];
 }
 
@@ -79,6 +81,7 @@
 - (void)updateScrollHeight {
     self.scrollHeight = self.searchBar.frame.size.height + (self.topViewCanHiding ? self.topView.frame.size.height : 0);
     [self setContentSize:CGSizeMake(self.frame.size.width, self.frame.size.height + self.scrollHeight)];
+    [self.topView setFrame:CGRectMake(0, self.searchBar.frame.size.height, self.frame.size.width, self.topView.frame.size.height)];
     CGFloat y = self.searchBar.frame.size.height + self.topView.frame.size.height;
     [self.tableView setFrame:CGRectMake(0, y, self.frame.size.width, self.contentSize.height - y)];
 }

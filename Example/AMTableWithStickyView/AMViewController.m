@@ -63,7 +63,7 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     
-    self.scrollView = [[AMTableWithStickyView alloc] initWithTopView:self.topView tableView:self.tableView size:self.view.frame.size];
+    self.scrollView = [[AMTableWithStickyView alloc] initWithTopView:self.topView tableView:self.tableView frame:self.view.frame];
     [self.view addSubview:self.scrollView];
 }
 
