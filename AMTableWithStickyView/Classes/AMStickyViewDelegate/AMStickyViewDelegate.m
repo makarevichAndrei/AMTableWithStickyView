@@ -10,9 +10,9 @@
 
 @implementation AMStickyViewDelegate
 
--(instancetype) initWithObject:(NSObject*)object forTableWithStickyView:(AMTableWithStickyView *)tableWithStickyView {
-    _originalDelegate = object;
-    _tableWithStickyView = tableWithStickyView;
+-(instancetype)initWithObject:(NSObject*)object forTableWithStickyView:(AMTableWithStickyView *)tableWithStickyView {
+    self.originalDelegate = object;
+    self.tableWithStickyView = tableWithStickyView;
     return self;
 }
 
@@ -39,12 +39,8 @@
     return [self.originalDelegate methodSignatureForSelector:selector];
 }
 
-- (void)forwardInvocation:(NSInvocation *)invocation {
-
-}
-
 - (void) scrollViewDidScroll:(UIScrollView *)scrollView {
-    [self.tableWithStickyView tableWasScrolled:scrollView];
+    [self.tableWithStickyView performSelector:@selector(scrollViewDidScroll:) withObject:scrollView];
 }
 
 @end

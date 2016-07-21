@@ -9,14 +9,13 @@
 #import "AMTableWithStickyView.h"
 #import "AMViewController.h"
 
-@interface AMViewController () <UITableViewDelegate, UITableViewDataSource> {
-    NSMutableArray *_tableData;
-}
+@interface AMViewController () <UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) AMTableWithStickyView *scrollView;
-@property (nonatomic, strong) IBOutlet UITableView *tableView;
-@property (nonatomic, strong) IBOutlet UIView *topView;
+@property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) UIView *topView;
 @property (nonatomic, weak) IBOutlet UISwitch *switchButton;
+@property (nonatomic, strong) NSMutableArray *tableData;
 
 @end
 
@@ -27,9 +26,9 @@
     
     [self.switchButton setOn:YES];
     
-    _tableData = [[NSMutableArray alloc] init];
+    self.tableData = [[NSMutableArray alloc] init];
     
-    for (int i = 0; i < 2; i++ ) {
+    for (int i = 0; i < 2; i++) {
         NSArray *arr = @[@"Cell 1",
                          @"Cell 2",
                          @"Cell 3",
@@ -49,14 +48,13 @@
                          @"Cell 17",
                          @"Cell 18",
                          @"Cell 19",
-                         @"Cell 20"
-                         ];
+                         @"Cell 20"];
         
-        [_tableData addObject:arr];
+        [self.tableData addObject:arr];
     }
     self.topView = [[UIView alloc] initWithFrame:CGRectMake(0, self.scrollView.searchBar.frame.size.height, self.scrollView.frame.size.width, 44)];
     self.topView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0,320, 40)];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 320, 40)];
     label.text = @"Sticky View";
     label.textAlignment = NSTextAlignmentCenter;
     [self.topView addSubview:label];
@@ -65,9 +63,8 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     
-    self.scrollView = [[AMTableWithStickyView alloc] initWithTopView:self.topView tableView:self.tableView];
-    [self.scrollView updateViewWithFrame:self.view.frame];
-    [self.view addSubview: self.scrollView];
+    self.scrollView = [[AMTableWithStickyView alloc] initWithTopView:self.topView tableView:self.tableView size:self.view.frame.size];
+    [self.view addSubview:self.scrollView];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -85,11 +82,11 @@
 #pragma mark - UITableViewDelegate
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return [_tableData count];
+    return [self.tableData count];
 }
 
 - (NSInteger)tableView:(UITableView *)table numberOfRowsInSection:(NSInteger)section {
-    NSInteger rowsCount = [_tableData[section] count];
+    NSInteger rowsCount = [self.tableData[section] count];
     return rowsCount;
 }
 
@@ -102,7 +99,7 @@
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
     }
-    cell.textLabel.text = _tableData[indexPath.section][indexPath.row];
+    cell.textLabel.text = self.tableData[indexPath.section][indexPath.row];
     return cell;
 }
 
@@ -111,7 +108,7 @@
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    UIView *view =  [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 22)];
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 22)];
     view.backgroundColor = [UIColor redColor];
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 320, 22)];
     label.text = [NSString stringWithFormat:@"Section %d", (int)section + 1];

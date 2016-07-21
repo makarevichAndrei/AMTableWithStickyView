@@ -9,10 +9,10 @@
 #import "AMTableWithStickyView.h"
 #import "AMStickyViewDelegate.h"
 
-@interface AMTableWithStickyView () {
-    BOOL _topViewCanHiding;
-    CGFloat _scrollHeight;
-}
+@interface AMTableWithStickyView()
+
+@property BOOL topViewCanHiding;
+@property CGFloat scrollHeight;
 @property (nonatomic, strong) UIView *topView;
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) AMStickyViewDelegate *stickyViewDelegate;
@@ -21,12 +21,16 @@
 
 @implementation AMTableWithStickyView
 
-- (id)initWithTopView:(UIView *) topView tableView:(UITableView *)tableView {
+- (id)initWithTopView:(UIView *) topView tableView:(UITableView *)tableView  {
+    return [self initWithTopView:topView tableView:tableView size:CGSizeMake(320, 480)];
+}
+
+- (id)initWithTopView:(UIView *) topView tableView:(UITableView *)tableView size:(CGSize) size {
     self = [super init];
     if (self) {
-        self.searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
+        self.searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, size.width, 44)];
         self.searchBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-        [topView setFrame:CGRectMake(0, self.searchBar.frame.size.height, 320,topView.frame.size.height)];
+        [topView setFrame:CGRectMake(0, self.searchBar.frame.size.height, size.width, topView.frame.size.height)];
         self.topView = topView;
         self.tableView = tableView;
         self.stickyViewDelegate = [AMStickyViewDelegate proxyWithObject:self.tableView.delegate forTableWithStickyView:self];
@@ -35,7 +39,7 @@
         self.showsVerticalScrollIndicator = NO;
         self.delegate = self;
     
-        [self setFrame:CGRectMake(0, 0, 320, 480)];
+        [self setFrame:CGRectMake(0, 0, size.width, size.height)];
     
         [self addSubview:self.searchBar];
         [self addSubview:self.topView];
@@ -47,7 +51,7 @@
 }
 
 - (void)updateViewWithFrame:(CGRect)viewFrame {
-    [self setFrame: viewFrame];
+    [self setFrame:viewFrame];
 }
 
 - (void)setFrame:(CGRect)frame {
@@ -67,30 +71,29 @@
 }
 
 - (void)topViewShouldHiding:(BOOL)yesNo{
-    _topViewCanHiding = yesNo;
+    self.topViewCanHiding = yesNo;
     self.tableView.scrollEnabled = NO;
     [self updateScrollHeight];
 }
 
 - (void)updateScrollHeight {
-    _scrollHeight = self.searchBar.frame.size.height + (_topViewCanHiding ? self.topView.frame.size.height : 0);
-    [self setContentSize:CGSizeMake(self.frame.size.width, self.frame.size.height +_scrollHeight)];
+    self.scrollHeight = self.searchBar.frame.size.height + (self.topViewCanHiding ? self.topView.frame.size.height : 0);
+    [self setContentSize:CGSizeMake(self.frame.size.width, self.frame.size.height + self.scrollHeight)];
     CGFloat y = self.searchBar.frame.size.height + self.topView.frame.size.height;
     [self.tableView setFrame:CGRectMake(0, y, self.frame.size.width, self.contentSize.height - y)];
 }
 
-- (void) tableWasScrolled:(UIScrollView *)scrollView {
-    [self scrollViewDidScroll:scrollView];
-}
-
 #pragma mark - UIScrollViewDelegate
 
-- (void) scrollViewDidScroll:(UIScrollView *)scrollView {
-    if (!_topViewCanHiding && ![scrollView isMemberOfClass:[UITableView class]]) {
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    if (!self.topViewCanHiding && ![scrollView isMemberOfClass:[UITableView class]]) {
         if (scrollView.contentOffset.y < self.searchBar.frame.size.height) {
             self.tableView.scrollEnabled = NO;
         } else {
+            scrollView.scrollEnabled = NO;
             self.tableView.scrollEnabled = YES;
+            self.contentOffset = CGPointMake(0, self.searchBar.frame.size.height);
+            scrollView.scrollEnabled = YES;
         }
         if (self.tableView.contentOffset.y > 0) {
             self.contentOffset = CGPointMake(0, self.searchBar.frame.size.height);
@@ -114,7 +117,7 @@
             if (scrollView.contentOffset.y < self.topView.frame.size.height) {
                 self.contentOffset = CGPointMake(scrollView.contentOffset.x, scrollView.contentOffset.y + self.searchBar.frame.size.height);
             } else {
-                self.contentOffset = CGPointMake(0, _scrollHeight);
+                self.contentOffset = CGPointMake(0, self.scrollHeight);
             }
         }
     }

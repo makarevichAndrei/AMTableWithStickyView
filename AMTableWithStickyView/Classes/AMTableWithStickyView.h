@@ -10,16 +10,16 @@
 
 @interface AMTableWithStickyView : UIScrollView <UIScrollViewDelegate, UITableViewDelegate>
 
-@property (nonatomic, strong) IBOutlet UISearchBar *searchBar;
+@property (nonatomic, strong) UISearchBar *searchBar;
 
 - (id)initWithTopView:(UIView *) topView tableView:(UITableView *)tableView;
+- (id)initWithTopView:(UIView *) topView tableView:(UITableView *)tableView size:(CGSize) size;
 - (void)updateViewWithFrame:(CGRect)viewFrame;
 
 
 - (void)setUpTopView:(UIView *)topView;
 - (void)setUpTableView:(UITableView *)tableView;
 
-- (void)tableWasScrolled:(UIScrollView *)scrollView;
 - (void)topViewShouldHiding:(BOOL)yesNo; //default value is NO
 
 @end
