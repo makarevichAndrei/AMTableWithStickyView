@@ -20,8 +20,7 @@
 		6003F5B2195388D20070C39A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F591195388D20070C39A /* UIKit.framework */; };
 		6003F5BA195388D20070C39A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6003F5B8195388D20070C39A /* InfoPlist.strings */; };
 		6003F5BC195388D20070C39A /* Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5BB195388D20070C39A /* Tests.m */; };
-		643592311D3D06B000909002 /* AMTableWithStickyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 643592301D3D06B000909002 /* AMTableWithStickyView.m */; };
-		643592341D3D06C300909002 /* AMStickyViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 643592331D3D06C300909002 /* AMStickyViewDelegate.m */; };
+		646888DB1D411D2600FFE8A8 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 646888DA1D411D2600FFE8A8 /* Podfile */; };
 		873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 873B8AEA1B1F5CCA007FD442 /* Main.storyboard */; };
 /* End PBXBuildFile section */
 
@@ -36,8 +35,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		08A6DBF66BF7CD1EA77795D7 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
-		343F9656AF2BC157DF2179A7 /* AMTableWithStickyView.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = AMTableWithStickyView.podspec; path = ../AMTableWithStickyView.podspec; sourceTree = "<group>"; };
 		6003F58A195388D20070C39A /* AMTableWithStickyView_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AMTableWithStickyView_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6003F58D195388D20070C39A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		6003F58F195388D20070C39A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -57,12 +54,8 @@
 		6003F5B9195388D20070C39A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		6003F5BB195388D20070C39A /* Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Tests.m; sourceTree = "<group>"; };
 		606FC2411953D9B200FFA9A0 /* Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tests-Prefix.pch"; sourceTree = "<group>"; };
-		6435922F1D3D06B000909002 /* AMTableWithStickyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AMTableWithStickyView.h; path = ../AMTableWithStickyView/Classes/AMTableWithStickyView.h; sourceTree = "<group>"; };
-		643592301D3D06B000909002 /* AMTableWithStickyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AMTableWithStickyView.m; path = ../AMTableWithStickyView/Classes/AMTableWithStickyView.m; sourceTree = "<group>"; };
-		643592321D3D06C300909002 /* AMStickyViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AMStickyViewDelegate.h; path = ../AMTableWithStickyView/Classes/AMStickyViewDelegate/AMStickyViewDelegate.h; sourceTree = "<group>"; };
-		643592331D3D06C300909002 /* AMStickyViewDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AMStickyViewDelegate.m; path = ../AMTableWithStickyView/Classes/AMStickyViewDelegate/AMStickyViewDelegate.m; sourceTree = "<group>"; };
+		646888DA1D411D2600FFE8A8 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = SOURCE_ROOT; };
 		873B8AEA1B1F5CCA007FD442 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
-		C534F566931C2A338DC34290 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,8 +85,6 @@
 		6003F581195388D10070C39A = {
 			isa = PBXGroup;
 			children = (
-				6435922D1D3D067C00909002 /* Classes */,
-				60FF7A9C1954A5C5007DD14C /* Podspec Metadata */,
 				6003F593195388D20070C39A /* Example for AMTableWithStickyView */,
 				6003F5B5195388D20070C39A /* Tests */,
 				6003F58C195388D20070C39A /* Frameworks */,
@@ -124,6 +115,7 @@
 		6003F593195388D20070C39A /* Example for AMTableWithStickyView */ = {
 			isa = PBXGroup;
 			children = (
+				646888DA1D411D2600FFE8A8 /* Podfile */,
 				6003F59C195388D20070C39A /* AMAppDelegate.h */,
 				6003F59D195388D20070C39A /* AMAppDelegate.m */,
 				873B8AEA1B1F5CCA007FD442 /* Main.storyboard */,
@@ -164,35 +156,6 @@
 				606FC2411953D9B200FFA9A0 /* Tests-Prefix.pch */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		60FF7A9C1954A5C5007DD14C /* Podspec Metadata */ = {
-			isa = PBXGroup;
-			children = (
-				343F9656AF2BC157DF2179A7 /* AMTableWithStickyView.podspec */,
-				C534F566931C2A338DC34290 /* README.md */,
-				08A6DBF66BF7CD1EA77795D7 /* LICENSE */,
-			);
-			name = "Podspec Metadata";
-			sourceTree = "<group>";
-		};
-		6435922D1D3D067C00909002 /* Classes */ = {
-			isa = PBXGroup;
-			children = (
-				6435922F1D3D06B000909002 /* AMTableWithStickyView.h */,
-				643592301D3D06B000909002 /* AMTableWithStickyView.m */,
-				6435922E1D3D068800909002 /* AMStickyViewDelegate */,
-			);
-			name = Classes;
-			sourceTree = "<group>";
-		};
-		6435922E1D3D068800909002 /* AMStickyViewDelegate */ = {
-			isa = PBXGroup;
-			children = (
-				643592321D3D06C300909002 /* AMStickyViewDelegate.h */,
-				643592331D3D06C300909002 /* AMStickyViewDelegate.m */,
-			);
-			name = AMStickyViewDelegate;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -274,6 +237,7 @@
 			files = (
 				873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */,
 				6003F5A9195388D20070C39A /* Images.xcassets in Resources */,
+				646888DB1D411D2600FFE8A8 /* Podfile in Resources */,
 				6003F598195388D20070C39A /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -295,9 +259,7 @@
 			files = (
 				6003F59E195388D20070C39A /* AMAppDelegate.m in Sources */,
 				6003F5A7195388D20070C39A /* AMViewController.m in Sources */,
-				643592311D3D06B000909002 /* AMTableWithStickyView.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
-				643592341D3D06C300909002 /* AMStickyViewDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

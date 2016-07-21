@@ -1,10 +1,8 @@
+platform :ios, "7.0"
 use_frameworks!
 
 target 'AMTableWithStickyView_Example' do
-  pod 'AMTableWithStickyView', :path => '../'
 
-  target 'AMTableWithStickyView_Tests' do
-    inherit! :search_paths
-    
-  end
+    pod 'AMTableWithStickyView', '~> 0.1.0'
+
 end
