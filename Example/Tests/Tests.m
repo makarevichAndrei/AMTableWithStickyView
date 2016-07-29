@@ -6,9 +6,9 @@
 //  Copyright (c) 2016 Andrei Makarevich. All rights reserved.
 //
 
-@import XCTest;
-#import "AMTableWithStickyView.h"
-#import "AMStickyViewDelegate.h"
+#import <XCTest/XCTest.h>
+#import <AMTableWithStickyView/AMTableWithStickyView.h>
+#import <AMTableWithStickyView/AMStickyViewDelegate.h>
 
 @interface Tests : XCTestCase
 
