@@ -12,8 +12,6 @@
 
 @interface Tests : XCTestCase
 
-@property(nonatomic, strong) XCUIApplication *app;
-
 @property (nonatomic, strong) AMTableWithStickyView *tableWithStickyView;
 @property (nonatomic, strong) AMStickyViewDelegate *stickyViewDelegate;
 
@@ -34,7 +32,7 @@
     UITableView *tableView = [[UITableView alloc] init];
     
     self.tableWithStickyView = [[AMTableWithStickyView alloc] initWithTopView:topView tableView:tableView];
-    [self.self.tableWithStickyView updateViewWithFrame:CGRectMake(0, 0, 320, 480)];
+    [self.tableWithStickyView updateViewWithFrame:CGRectMake(0, 0, 320, 480)];
     
 }
 
