@@ -83,13 +83,19 @@
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-    [self scrollViewDidScroll:self.tableView];
+    if ([keyPath isEqual:@"contentOffset"]) {
+        [self scrollViewDidScroll:self.tableView];
+    }
+}
+
+- (void)dealloc {
+    [self.tableView removeObserver:self forKeyPath:@"contentOffset"];
 }
 
 #pragma mark - UIScrollViewDelegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    if (!self.topViewCanHiding && ![scrollView isMemberOfClass:[UITableView class]]) {
+    if (!self.topViewCanHiding && ![scrollView isKindOfClass:[UITableView class]]) {
         if (scrollView.contentOffset.y < self.searchBar.frame.size.height) {
             self.tableView.scrollEnabled = NO;
         } else {
@@ -102,7 +108,7 @@
             self.contentOffset = CGPointMake(0, self.searchBar.frame.size.height);
         }
     } else {
-        if (![scrollView isMemberOfClass:[UITableView class]]) {
+        if (![scrollView isKindOfClass:[UITableView class]]) {
             if (scrollView.contentOffset.y < self.searchBar.frame.size.height) {
                 self.tableView.scrollEnabled = NO;
             } else {
