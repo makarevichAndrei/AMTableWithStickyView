@@ -7,7 +7,6 @@
 //
 
 #import "AMTableWithStickyView.h"
-#import "AMStickyViewDelegate.h"
 
 @interface AMTableWithStickyView()
 
@@ -15,7 +14,6 @@
 @property CGFloat scrollHeight;
 @property (nonatomic, strong) UIView *topView;
 @property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, strong) AMStickyViewDelegate *stickyViewDelegate;
 
 @end
 
@@ -33,9 +31,7 @@
         [topView setFrame:CGRectMake(0, self.searchBar.frame.size.height, frame.size.width, topView.frame.size.height)];
         self.topView = topView;
         self.tableView = tableView;
-        self.stickyViewDelegate = [AMStickyViewDelegate proxyWithObject:self.tableView.delegate forTableWithStickyView:self];
-        self.tableView.delegate = self.stickyViewDelegate;
-    
+        [self.tableView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:nil];
         self.showsVerticalScrollIndicator = NO;
         self.delegate = self;
     
@@ -66,9 +62,9 @@
 }
 
 - (void)setUpTableView:(UITableView *)tableView {
+    [self.tableView removeObserver:self forKeyPath:@"contentOffset"];
     self.tableView = tableView;
-    self.stickyViewDelegate = [AMStickyViewDelegate proxyWithObject:self.tableView.delegate forTableWithStickyView:self];
-    self.tableView.delegate = self.stickyViewDelegate;
+    [self.tableView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
     [self updateScrollHeight];
 }
 
@@ -84,6 +80,10 @@
     [self.topView setFrame:CGRectMake(0, self.searchBar.frame.size.height, self.frame.size.width, self.topView.frame.size.height)];
     CGFloat y = self.searchBar.frame.size.height + self.topView.frame.size.height;
     [self.tableView setFrame:CGRectMake(0, y, self.frame.size.width, self.contentSize.height - y)];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    [self scrollViewDidScroll:self.tableView];
 }
 
 #pragma mark - UIScrollViewDelegate
