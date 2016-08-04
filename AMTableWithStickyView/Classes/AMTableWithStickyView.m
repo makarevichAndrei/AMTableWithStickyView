@@ -19,6 +19,32 @@
 
 @implementation AMTableWithStickyView
 
+- (id)initWithSearchBar:(UIView *)searchBar topView:(UIView *)topView tableView:(UITableView *)tableView {
+    return [self initWithSearchBar:searchBar topView:topView tableView:tableView frame:CGRectMake(0, 0, 320, 480)];
+}
+
+- (id)initWithSearchBar:(UIView *)searchBar topView:(UIView *)topView tableView:(UITableView *)tableView frame:(CGRect)frame {
+    self = [super init];
+    if (self) {
+        self.searchBar = searchBar;
+        [topView setFrame:CGRectMake(0, self.searchBar.frame.size.height, frame.size.width, topView.frame.size.height)];
+        self.topView = topView;
+        self.tableView = tableView;
+        [self.tableView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:nil];
+        self.showsVerticalScrollIndicator = NO;
+        self.delegate = self;
+        
+        [self setFrame:frame];
+        
+        [self addSubview:self.searchBar];
+        [self addSubview:self.topView];
+        [self addSubview:self.tableView];
+        [self setContentOffset:CGPointMake(0, self.searchBar.frame.size.height)];
+        
+    }
+    return self;
+}
+
 - (id)initWithTopView:(UIView *) topView tableView:(UITableView *)tableView  {
     return [self initWithTopView:topView tableView:tableView frame:CGRectMake(0, 0, 320, 480)];
 }
