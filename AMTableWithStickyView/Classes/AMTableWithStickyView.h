@@ -13,7 +13,7 @@
 /**
  * Accessors to customize search bar or use it create your UISearchDisplayController
  */
-@property (nonatomic, strong) UISearchBar *searchBar;
+@property (nonatomic, strong) UIView *searchBar;
 
 /**
  * Create AMTableWithStickyView instance with default frame
