@@ -15,6 +15,28 @@
  */
 @property (nonatomic, strong) UISearchBar *searchBar;
 
+/**
+ * Create AMTableWithStickyView instance with default frame
+ *
+ * @param searchView you search bar view
+ * @param topView view that should by sticky
+ * @param tableView table view with delegate and data source
+ *
+ * @return instance of AMTableWithStickyView
+ */
+- (id)initWithSearchBar:(UIView *)searchBar topView:(UIView *)topView tableView:(UITableView *)tableView;
+
+/**
+ * Create AMTableWithStickyView instance
+ *
+ * @param searchView you search bar view
+ * @param topView view that should by sticky
+ * @param tableView table view with delegate and data source
+ * @param frame frame of instance AMTableWithStickyView
+ *
+ * @return instance of AMTableWithStickyView
+ */
+- (id)initWithSearchBar:(UIView *)searchBar topView:(UIView *)topView tableView:(UITableView *)tableView frame:(CGRect)frame;
 /** 
  * Create AMTableWithStickyView instance with default frame
  *
