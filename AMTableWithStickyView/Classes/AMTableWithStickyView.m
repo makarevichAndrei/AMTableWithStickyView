@@ -101,6 +101,7 @@
 }
 
 - (void)updateScrollHeight {
+    [self.searchBar setFrame:CGRectMake(0, 0, self.frame.size.width, self.searchBar.frame.size.height)];
     self.scrollHeight = self.searchBar.frame.size.height + (self.topViewCanHiding ? self.topView.frame.size.height : 0);
     [self setContentSize:CGSizeMake(self.frame.size.width, self.frame.size.height + self.scrollHeight)];
     [self.topView setFrame:CGRectMake(0, self.searchBar.frame.size.height, self.frame.size.width, self.topView.frame.size.height)];
