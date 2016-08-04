@@ -52,7 +52,7 @@
 - (id)initWithTopView:(UIView *) topView tableView:(UITableView *)tableView frame:(CGRect)frame {
     self = [super init];
     if (self) {
-        self.searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, 44)];
+        self.searchBar = (UIView *)[[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, 44)];
         self.searchBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         [topView setFrame:CGRectMake(0, self.searchBar.frame.size.height, frame.size.width, topView.frame.size.height)];
         self.topView = topView;
