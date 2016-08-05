@@ -88,4 +88,6 @@
 
 - (void)setUpObserverForTable;
 
+- (void)removeObserverForTable;
+
 @end
