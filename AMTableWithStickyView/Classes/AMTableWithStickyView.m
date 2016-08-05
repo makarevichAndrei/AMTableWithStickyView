@@ -33,7 +33,7 @@
         [topView setFrame:CGRectMake(0, self.searchBar.frame.size.height, frame.size.width, topView.frame.size.height)];
         self.topView = topView;
         self.tableView = tableView;
-        BOOL _observerIsSeted = NO;
+        _observerIsSeted = NO;
         self.showsVerticalScrollIndicator = NO;
         self.delegate = self;
         
@@ -59,7 +59,7 @@
         [topView setFrame:CGRectMake(0, self.searchBar.frame.size.height, frame.size.width, topView.frame.size.height)];
         self.topView = topView;
         self.tableView = tableView;
-        BOOL _observerIsSeted = NO;
+        _observerIsSeted = NO;
         self.showsVerticalScrollIndicator = NO;
         self.delegate = self;
     
