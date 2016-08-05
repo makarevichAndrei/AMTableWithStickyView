@@ -86,4 +86,6 @@
  */
 - (void)topViewShouldHiding:(BOOL)yesNo; //default value is NO
 
+- (void)setUpObserverForTable;
+
 @end
