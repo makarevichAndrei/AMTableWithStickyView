@@ -3,6 +3,6 @@ use_frameworks!
 
 target 'AMTableWithStickyView_Example' do
 
-    pod 'AMTableWithStickyView', '~> 1.0.0'
+    pod 'AMTableWithStickyView', '~> 5.0.0'
 
 end

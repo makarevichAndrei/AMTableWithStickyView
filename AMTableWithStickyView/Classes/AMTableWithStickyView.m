@@ -10,9 +10,9 @@
 
 @interface AMTableWithStickyView()
 
-@property BOOL topViewCanHiding;
+@property BOOL stickyViewCanHiding;
 @property CGFloat scrollHeight;
-@property (nonatomic, strong) UIView *topView;
+@property (nonatomic, strong) UIView *stickyView;
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UIView *backgroundView;
 
@@ -22,18 +22,18 @@
     BOOL _scrollHeightIsUpdating;
 }
 
-- (id)initWithSearchBar:(UIView *)searchBar topView:(UIView *)topView tableView:(UITableView *)tableView {
-    return [self initWithSearchBar:searchBar topView:topView tableView:tableView frame:CGRectMake(0, 0, 320, 480)];
+- (id)initWithTopView:(UIView *)topView searchBackground:(UIView *)background stickyView:(UIView *)stickyView tableView:(UITableView *)tableView {
+    return [self initWithTopView:topView searchBackground:background stickyView:stickyView tableView:tableView frame:CGRectMake(0, 0, 320, 480)];
 }
 
-- (id)initWithSearchBar:(UIView *)searchBar topView:(UIView *)topView tableView:(UITableView *)tableView frame:(CGRect)frame {
+- (id)initWithTopView:(UIView *)searchBar searchBackground:(UIView *)background stickyView:(UIView *)stickyView tableView:(UITableView *)tableView frame:(CGRect)frame {
     self = [super init];
     if (self) {
-        self.searchBar = searchBar;
-        [topView setFrame:CGRectMake(0, self.searchBar.frame.size.height, frame.size.width, topView.frame.size.height)];
-        self.backgroundView = [[UISearchBar alloc] initWithFrame:self.searchBar.frame];
-        self.backgroundView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-        self.topView = topView;
+        self.topView = searchBar;
+        [stickyView setFrame:CGRectMake(0, self.topView.frame.size.height, frame.size.width, stickyView.frame.size.height)];
+        self.backgroundView = background;
+        [self.backgroundView setFrame:self.topView.frame];
+        self.stickyView = stickyView;
         self.tableView = tableView;
         [self.tableView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:nil];
         self.showsVerticalScrollIndicator = NO;
@@ -42,40 +42,10 @@
         [self setFrame:frame];
         
         [self addSubview:self.backgroundView];
-        [self addSubview:self.searchBar];
         [self addSubview:self.topView];
+        [self addSubview:self.stickyView];
         [self addSubview:self.tableView];
-        [self setContentOffset:CGPointMake(0, self.searchBar.frame.size.height)];
-        
-    }
-    return self;
-}
-
-- (id)initWithTopView:(UIView *) topView tableView:(UITableView *)tableView  {
-    return [self initWithTopView:topView tableView:tableView frame:CGRectMake(0, 0, 320, 480)];
-}
-
-- (id)initWithTopView:(UIView *) topView tableView:(UITableView *)tableView frame:(CGRect)frame {
-    self = [super init];
-    if (self) {
-        self.searchBar = (UIView *)[[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, 44)];
-        self.searchBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-        [topView setFrame:CGRectMake(0, self.searchBar.frame.size.height, frame.size.width, topView.frame.size.height)];
-        self.backgroundView = [[UISearchBar alloc] initWithFrame:self.searchBar.frame];
-        self.backgroundView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-        self.topView = topView;
-        self.tableView = tableView;
-        [self.tableView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:nil];
-        self.showsVerticalScrollIndicator = NO;
-        self.delegate = self;
-    
-        [self setFrame:frame];
-        
-        [self addSubview:self.backgroundView];
-        [self addSubview:self.searchBar];
-        [self addSubview:self.topView];
-        [self addSubview:self.tableView];
-        [self setContentOffset:CGPointMake(0, self.searchBar.frame.size.height)];
+        [self setContentOffset:CGPointMake(0, self.topView.frame.size.height)];
         
     }
     return self;
@@ -90,8 +60,8 @@
     [self updateScrollHeight];
 }
 
-- (void)setUpTopView:(UIView *)topView {
-    self.topView = topView;
+- (void)setUpStickyView:(UIView *)stickyView {
+    self.stickyView = stickyView;
     [self updateScrollHeight];
 }
 
@@ -102,20 +72,20 @@
     [self updateScrollHeight];
 }
 
-- (void)topViewShouldHiding:(BOOL)yesNo{
-    self.topViewCanHiding = yesNo;
+- (void)stickyViewShouldHiding:(BOOL)yesNo{
+    self.stickyViewCanHiding = yesNo;
     self.tableView.scrollEnabled = NO;
     [self updateScrollHeight];
 }
 
 - (void)updateScrollHeight {
     _scrollHeightIsUpdating = YES;
-    [self.searchBar setFrame:CGRectMake(0, 0, self.frame.size.width, self.searchBar.frame.size.height)];
-    [self.backgroundView setFrame:CGRectMake(0, 0, self.frame.size.width, self.searchBar.frame.size.height)];
-    self.scrollHeight = self.searchBar.frame.size.height + (self.topViewCanHiding ? self.topView.frame.size.height : 0);
+    [self.topView setFrame:CGRectMake(0, 0, self.frame.size.width, self.topView.frame.size.height)];
+    [self.backgroundView setFrame:CGRectMake(0, 0, self.frame.size.width, self.topView.frame.size.height)];
+    self.scrollHeight = self.topView.frame.size.height + (self.stickyViewCanHiding ? self.stickyView.frame.size.height : 0);
     [self setContentSize:CGSizeMake(self.frame.size.width, self.frame.size.height + self.scrollHeight)];
-    [self.topView setFrame:CGRectMake(0, self.searchBar.frame.size.height, self.frame.size.width, self.topView.frame.size.height)];
-    CGFloat y = self.searchBar.frame.size.height + self.topView.frame.size.height;
+    [self.stickyView setFrame:CGRectMake(0, self.topView.frame.size.height, self.frame.size.width, self.stickyView.frame.size.height)];
+    CGFloat y = self.topView.frame.size.height + self.stickyView.frame.size.height;
     [self.tableView setFrame:CGRectMake(0, y, self.frame.size.width, self.contentSize.height - y)];
     _scrollHeightIsUpdating = NO;
 }
@@ -133,25 +103,25 @@
 #pragma mark - UIScrollViewDelegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    if (!self.topViewCanHiding && ![scrollView isKindOfClass:[UITableView class]]) {
-        if (scrollView.contentOffset.y < self.searchBar.frame.size.height) {
+    if (!self.stickyViewCanHiding && ![scrollView isKindOfClass:[UITableView class]]) {
+        if (scrollView.contentOffset.y < self.topView.frame.size.height) {
             self.tableView.scrollEnabled = NO;
         } else {
             scrollView.scrollEnabled = NO;
             self.tableView.scrollEnabled = YES;
-            self.contentOffset = CGPointMake(0, self.searchBar.frame.size.height);
+            self.contentOffset = CGPointMake(0, self.topView.frame.size.height);
             scrollView.scrollEnabled = YES;
         }
         if (self.tableView.contentOffset.y > 0) {
-            self.contentOffset = CGPointMake(0, self.searchBar.frame.size.height);
+            self.contentOffset = CGPointMake(0, self.topView.frame.size.height);
         }
     } else {
         if (![scrollView isKindOfClass:[UITableView class]]) {
-            if (scrollView.contentOffset.y < self.searchBar.frame.size.height) {
+            if (scrollView.contentOffset.y < self.topView.frame.size.height) {
                 self.tableView.scrollEnabled = NO;
             } else {
                 if (!(self.tableView.contentOffset.y > 0)) {
-                    self.contentOffset =CGPointMake(0, self.searchBar.frame.size.height);
+                    self.contentOffset =CGPointMake(0, self.topView.frame.size.height);
                     self.scrollEnabled = NO;
                 }
                 self.tableView.scrollEnabled = YES;
@@ -161,8 +131,8 @@
                 self.tableView.contentOffset = CGPointMake(0, 0);
                 self.scrollEnabled = YES;
             }
-            if (scrollView.contentOffset.y < self.topView.frame.size.height) {
-                self.contentOffset = CGPointMake(scrollView.contentOffset.x, scrollView.contentOffset.y + self.searchBar.frame.size.height);
+            if (scrollView.contentOffset.y < self.stickyView.frame.size.height) {
+                self.contentOffset = CGPointMake(scrollView.contentOffset.x, scrollView.contentOffset.y + self.topView.frame.size.height);
             } else {
                 self.contentOffset = CGPointMake(0, self.scrollHeight);
             }

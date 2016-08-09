@@ -6,16 +6,19 @@
 //  Copyright (c) 2016 Andrei Makarevich. All rights reserved.
 //
 
-#import "AMTableWithStickyView.h"
+#import "AMTableWithStickyView/AMTableWithStickyView.h"
 #import "AMViewController.h"
 
 @interface AMViewController () <UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) AMTableWithStickyView *scrollView;
 @property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) IBOutlet UISearchBar *searchView;
 @property (nonatomic, strong) UIView *topView;
 @property (nonatomic, weak) IBOutlet UISwitch *switchButton;
 @property (nonatomic, strong) NSMutableArray *tableData;
+@property (nonatomic, strong) UISearchDisplayController *controller;
+@property (nonatomic, strong) UIView *temp;
 
 @end
 
@@ -52,7 +55,7 @@
         
         [self.tableData addObject:arr];
     }
-    self.topView = [[UIView alloc] initWithFrame:CGRectMake(0, self.scrollView.searchBar.frame.size.height, self.scrollView.frame.size.width, 44)];
+    self.topView = [[UIView alloc] initWithFrame:CGRectMake(0, self.scrollView.topView.frame.size.height, self.scrollView.frame.size.width, 44)];
     self.topView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 320, 40)];
     label.text = @"Sticky View";
@@ -63,19 +66,29 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     
-    self.scrollView = [[AMTableWithStickyView alloc] initWithTopView:self.topView tableView:self.tableView frame:self.view.frame];
+    self.controller = [[UISearchDisplayController alloc] initWithSearchBar:self.searchView contentsController:self];
+    
+    UISearchBar *background = [[UISearchBar alloc] initWithFrame:self.searchView.frame];
+    background.placeholder = @"TEST";
+    
+    self.scrollView = [[AMTableWithStickyView alloc] initWithTopView:self.searchView searchBackground:background stickyView:self.topView tableView:self.tableView frame:self.view.frame];
+    
+    self.temp = [[UISearchBar alloc] initWithFrame: CGRectMake(0, 0, self.scrollView.frame.size.width, 44)];
+    self.temp.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    
     [self.view addSubview:self.scrollView];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [self.scrollView updateViewWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+    
 }
 
 - (IBAction)switchToggled:(UISwitch *)sender {
     if (sender.isOn) {
-        [self.scrollView topViewShouldHiding:NO];
+        [self.scrollView stickyViewShouldHiding:NO];
     } else {
-        [self.scrollView topViewShouldHiding:YES];
+        [self.scrollView stickyViewShouldHiding:YES];
     }
 }
 

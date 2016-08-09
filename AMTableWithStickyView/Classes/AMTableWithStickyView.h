@@ -8,55 +8,37 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AMTableWithStickyView : UIScrollView <UIScrollViewDelegate, UITableViewDelegate>
+@interface AMTableWithStickyView : UIScrollView <UIScrollViewDelegate>
 
 /**
  * Accessors to customize search bar or use it create your UISearchDisplayController
  */
-@property (nonatomic, strong) UIView *searchBar;
+@property (nonatomic, strong) UIView *topView;
 
 /**
  * Create AMTableWithStickyView instance with default frame
  *
- * @param searchView you search bar view
- * @param topView view that should by sticky
+ * @param topView you top view
+ * @param background shuold be copy of top view if top view is subclass of UISearchBar
+ * @param stickyView view that should by sticky
  * @param tableView table view with delegate and data source
  *
  * @return instance of AMTableWithStickyView
  */
-- (id)initWithSearchBar:(UIView *)searchBar topView:(UIView *)topView tableView:(UITableView *)tableView;
+- (id)initWithTopView:(UIView *)topView searchBackground:(UIView *)background stickyView:(UIView *)stickyView tableView:(UITableView *)tableView;
 
 /**
  * Create AMTableWithStickyView instance
  *
- * @param searchView you search bar view
- * @param topView view that should by sticky
+ * @param topView you top view
+ * @param background shuold be copy of top view if top view is subclass of UISearchBar
+ * @param stickyView view that should by sticky
  * @param tableView table view with delegate and data source
  * @param frame frame of instance AMTableWithStickyView
  *
  * @return instance of AMTableWithStickyView
  */
-- (id)initWithSearchBar:(UIView *)searchBar topView:(UIView *)topView tableView:(UITableView *)tableView frame:(CGRect)frame;
-/** 
- * Create AMTableWithStickyView instance with default frame
- *
- * @param topView view that should by sticky
- * @param tableView table view with delegate and data source
- *
- * @return instance of AMTableWithStickyView
- */
-- (id)initWithTopView:(UIView *) topView tableView:(UITableView *)tableView;
-
-/**
- * Create AMTableWithStickyView instance
- *
- * @param topView view that should by sticky
- * @param tableView table view with delegate and data source
- * @param frame frame of instance AMTableWithStickyView
- *
- * @return instance of AMTableWithStickyView
- */
-- (id)initWithTopView:(UIView *) topView tableView:(UITableView *)tableView frame:(CGRect)frame;
+- (id)initWithTopView:(UIView *)topView searchBackground:(UIView *)background stickyView:(UIView *)stickyView tableView:(UITableView *)tableView frame:(CGRect)frame;
 
 /**
  * Update frame of AMTableWithStickyView instance
@@ -70,7 +52,7 @@
  *
  * @param topView view that will replace old sticky view
  */
-- (void)setUpTopView:(UIView *)topView;
+- (void)setUpStickyView:(UIView *)stickyView;
 
 /**
  * Replace table with tableView
@@ -84,6 +66,6 @@
  *
  * @param yesNo bool value that setup behavoir of sticky view (default is NO)
  */
-- (void)topViewShouldHiding:(BOOL)yesNo; //default value is NO
+- (void)stickyViewShouldHiding:(BOOL)yesNo; //default value is NO
 
 @end
