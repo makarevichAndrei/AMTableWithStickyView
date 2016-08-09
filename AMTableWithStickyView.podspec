@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'AMTableWithStickyView'
-  s.version          = '2.0.0'
+  s.version          = '4.0.0'
   s.summary          = 'Allow to create table with sticky view between search bar & table cells.'
 
 # This description is used to generate tags and improve search results.

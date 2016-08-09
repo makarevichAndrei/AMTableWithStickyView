@@ -14,10 +14,13 @@
 @property CGFloat scrollHeight;
 @property (nonatomic, strong) UIView *topView;
 @property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) UIView *backgroundView;
 
 @end
 
-@implementation AMTableWithStickyView
+@implementation AMTableWithStickyView {
+    BOOL _scrollHeightIsUpdating;
+}
 
 - (id)initWithSearchBar:(UIView *)searchBar topView:(UIView *)topView tableView:(UITableView *)tableView {
     return [self initWithSearchBar:searchBar topView:topView tableView:tableView frame:CGRectMake(0, 0, 320, 480)];
@@ -28,6 +31,8 @@
     if (self) {
         self.searchBar = searchBar;
         [topView setFrame:CGRectMake(0, self.searchBar.frame.size.height, frame.size.width, topView.frame.size.height)];
+        self.backgroundView = [[UISearchBar alloc] initWithFrame:self.searchBar.frame];
+        self.backgroundView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         self.topView = topView;
         self.tableView = tableView;
         [self.tableView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:nil];
@@ -36,6 +41,7 @@
         
         [self setFrame:frame];
         
+        [self addSubview:self.backgroundView];
         [self addSubview:self.searchBar];
         [self addSubview:self.topView];
         [self addSubview:self.tableView];
@@ -55,6 +61,8 @@
         self.searchBar = (UIView *)[[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, 44)];
         self.searchBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         [topView setFrame:CGRectMake(0, self.searchBar.frame.size.height, frame.size.width, topView.frame.size.height)];
+        self.backgroundView = [[UISearchBar alloc] initWithFrame:self.searchBar.frame];
+        self.backgroundView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         self.topView = topView;
         self.tableView = tableView;
         [self.tableView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:nil];
@@ -62,7 +70,8 @@
         self.delegate = self;
     
         [self setFrame:frame];
-    
+        
+        [self addSubview:self.backgroundView];
         [self addSubview:self.searchBar];
         [self addSubview:self.topView];
         [self addSubview:self.tableView];
@@ -79,7 +88,6 @@
 - (void)setFrame:(CGRect)frame {
     [super setFrame:frame];
     [self updateScrollHeight];
-    [self setContentOffset:CGPointMake(0, self.searchBar.frame.size.height)];
 }
 
 - (void)setUpTopView:(UIView *)topView {
@@ -101,16 +109,19 @@
 }
 
 - (void)updateScrollHeight {
+    _scrollHeightIsUpdating = YES;
     [self.searchBar setFrame:CGRectMake(0, 0, self.frame.size.width, self.searchBar.frame.size.height)];
+    [self.backgroundView setFrame:CGRectMake(0, 0, self.frame.size.width, self.searchBar.frame.size.height)];
     self.scrollHeight = self.searchBar.frame.size.height + (self.topViewCanHiding ? self.topView.frame.size.height : 0);
     [self setContentSize:CGSizeMake(self.frame.size.width, self.frame.size.height + self.scrollHeight)];
     [self.topView setFrame:CGRectMake(0, self.searchBar.frame.size.height, self.frame.size.width, self.topView.frame.size.height)];
     CGFloat y = self.searchBar.frame.size.height + self.topView.frame.size.height;
     [self.tableView setFrame:CGRectMake(0, y, self.frame.size.width, self.contentSize.height - y)];
+    _scrollHeightIsUpdating = NO;
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-    if ([keyPath isEqual:@"contentOffset"]) {
+    if ([keyPath isEqual:@"contentOffset"] && !_scrollHeightIsUpdating) {
         [self scrollViewDidScroll:self.tableView];
     }
 }
