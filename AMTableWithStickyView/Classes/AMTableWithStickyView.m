@@ -29,6 +29,7 @@
 - (id)initWithTopView:(UIView *)searchBar searchBackground:(UIView *)background stickyView:(UIView *)stickyView tableView:(UITableView *)tableView frame:(CGRect)frame {
     self = [super init];
     if (self) {
+        self.backgroundColor = [UIColor whiteColor];
         self.topView = searchBar;
         [stickyView setFrame:CGRectMake(0, self.topView.frame.size.height, frame.size.width, stickyView.frame.size.height)];
         self.backgroundView = background;
