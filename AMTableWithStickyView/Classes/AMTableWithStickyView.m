@@ -141,4 +141,12 @@
     }
 }
 
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+    if (scrollView.contentOffset.y >= self.topView.frame.size.height/2) {
+        [scrollView setContentOffset:CGPointMake(0, self.topView.frame.size.height) animated:YES];
+    } else {
+        [scrollView setContentOffset:CGPointZero animated:YES];
+    }
+}
+
 @end
